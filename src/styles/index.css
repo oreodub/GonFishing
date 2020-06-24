@@ -1,0 +1,42 @@
+#splash {
+    display: flex;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    left: 50%;
+    top: 50%;
+    z-index: 5;
+}
+
+#start {
+    display: flex;
+    position: absolute;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+    width: 100px;
+    font-size: 20px;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
+}
+
+.header {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    top: 23%;
+    left: 50%;
+    z-index: 6;
+    transition-duration: 0.5s;
+}
+
+.move {
+    top: 8%;
+    left: 10%;
+}
+
+#canvas {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    left: 50%;
+    top: 50%;
+}

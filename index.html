@@ -4,11 +4,21 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="stylesheet" href="./dist/main.css" />
-        <title>Idk what im doing</title>
+        <link rel="icon" href="./src/images/">
+        <title>Gon Fishing</title>
     </head>
 
     <body>
-        <h1>Javascript Project!!!</h1>
+        <audio id ="ARBW" src="./src/sounds/Aqua_Road_Blue_World.mp3"></audio>
+        <img style='display: none' id="smallfishleft"  src="./src/images/smallfishleft.png" alt="smallfishleft">
+        <img style='display: none' id="smallfishright" src="./src/images/smallfishright.png" alt="smallfishright">
+        <h1 class='header' id='header'>Gon Fishing</h1>
+        <div id ='splash'> 
+            <img id="gonwelcome" src="./src/images/gonwelcome.gif" alt="gonwelcome">
+            <button id='start'>START</button> 
+        </div>
+        <canvas id="canvas" height='700' width='1100'>
+        </canvas>
         <script src="./dist/main.js"></script>
     </body>
 
