@@ -10,16 +10,26 @@
 
     <body>
         <audio id ="ARBW" src="./src/sounds/Aqua_Road_Blue_World.mp3"></audio>
-        <img style='display: none' id="smallfishleft"  src="./src/images/smallfishleft.png" alt="smallfishleft">
-        <img style='display: none' id="smallfishright" src="./src/images/smallfishright.png" alt="smallfishright">
+        <img style='display: none'   src="./src/images/maskfishleft.png" alt="maskfishleft">
+        <img style='display: none'  src="./src/images/maskfishright.png" alt="maskfishright">
+        <img style='display: none'   src="./src/images/bubblefishleft.png" alt="bubblefishleft">
+        <img style='display: none'  src="./src/images/bubblefishright.png" alt="bubblefishright">
+        <img style='display: none'   src="./src/images/krappyleft.png" alt="krappyleft">
+        <img style='display: none'  src="./src/images/krappyright.png" alt="krappyright">
+        <img style='display: none' id='hook' src="./src/images/hook.png" alt="hook">
         <h1 class='header' id='header'>Gon Fishing</h1>
         <div id ='splash'> 
             <img id="gonwelcome" src="./src/images/gonwelcome.gif" alt="gonwelcome">
             <button id='start'>START</button> 
         </div>
-        <canvas id="canvas" height='700' width='1100'>
-        </canvas>
+
+        <canvas id="canvas" height='700' width='1100'></canvas>
+        <script src="https://cdn.jsdelivr.net/npm/bubbly-bg@0.2.3/dist/bubbly-bg.js"></script>
+        <script>bubbly({canvas: document.getElementById('canvas'),  compose: 'source-atop'});</script>
+
         <script src="./dist/main.js"></script>
     </body>
 
 </html>
+
+

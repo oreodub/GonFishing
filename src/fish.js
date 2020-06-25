@@ -1,7 +1,6 @@
 const CONSTANTS = {
   SMALL_FISH_WIDTH: 33,
   SMALL_FISH_HEIGHT: 24.5,
-  SMALL_FISH_SPEED: 2,
   LARGE_FISH_WIDTH: 80,
   LARGE_FISH_WIDTH: 40,
 };
@@ -14,9 +13,27 @@ export default class Fish {
     this.size = size;
 
     if (this.size === 'small') {
-      this.xVel = CONSTANTS.SMALL_FISH_SPEED;
-      this.yVel = CONSTANTS.SMALL_FISH_SPEED;
-      this.fish = this.randomFish(this.size)
+      this.xVel = this.newRandomVel();
+      this.yVel = this.newRandomVel();
+      this.pos = this.randomFish(this.size)
+
+
+      const fishes = document.querySelectorAll('img');
+      let randSmall = Math.floor(Math.random()*3)
+      switch (randSmall) {
+        case 0:
+          this.moveleft = fishes[0];
+          this.moveright = fishes[1];
+          break;
+        case 1:
+          this.moveleft = fishes[2];
+          this.moveright = fishes[3];
+          break;
+       case 2:
+          this.moveleft = fishes[4];
+          this.moveright = fishes[5];
+         break;
+      }
     }
 
     this.randMoveCB = this.randMoveCB.bind(this);
@@ -27,8 +44,9 @@ export default class Fish {
   }
 
   randomFish(size) {
-    let randomX = Math.floor(Math.random() * this.dimensions.width-10)+10;
-    let randomY = Math.floor(Math.random() * this.dimensions.height-10)+10;
+    let randomX = Math.floor(Math.random() * (this.dimensions.width-200)) + 100;
+    let randomY = Math.floor(Math.random() * (this.dimensions.height-200)) + 100;
+
     let fish = {};
     if (size === 'small') {
       fish = {
@@ -68,55 +86,27 @@ export default class Fish {
 
   
   moveFish() {
-        this.fish.left += this.xVel;
-        this.fish.right += this.xVel;
-        this.fish.top += this.yVel;
-        this.fish.bottom += this.yVel;
-      // } else {
-        // fish.left -= CONSTANTS.SMALL_FISH_SPEED
-      // }
-      
-    // });
+        this.pos.left += this.xVel;
+        this.pos.right += this.xVel;
+        this.pos.top += this.yVel;
+        this.pos.bottom += this.yVel;
+
   
-    // if (this.fish[0].right >= this.dimensions.width) {
-    //   this.fish.shift();
-    //   // const newX = this.fish[1].left;
-    //   this.fish.push(this.randomFish());
-    // }
-    if (this.fish.right >= this.dimensions.width || this.fish.left <= 0) {
-      // this.fish = this.randomFish();
+    if (this.pos.right >= (this.dimensions.width + 50) || this.pos.left <= -50) {
       this.xVel *= -1
     } 
 
-    if (this.fish.bottom >= this.dimensions.height || this.fish.top <= 0) {
+    if (this.pos.bottom >= (this.dimensions.height + 50) || this.pos.top <= -50) {
       this.yVel *= -1
     }
   }
   
   drawFish(ctx) {
-    // this.eachFish(function (fish) {
-      // let fish = new Image();
-      // debugger
-      // fish.src = './images/smallfish.png'
-      // fish.onload = () => {
-      //   ctx.drawImage(fish, this.fish.left, this.fish.top)
-      // }
-      const smallfishleft = document.getElementById("smallfishleft");
-      const smallfishright = document.getElementById("smallfishright");
       if (this.xVel < 0) {
-        ctx.drawImage(smallfishleft, this.fish.left, this.fish.top, CONSTANTS.SMALL_FISH_WIDTH, CONSTANTS.SMALL_FISH_HEIGHT);
+        ctx.drawImage(this.moveleft, this.pos.left, this.pos.top, CONSTANTS.SMALL_FISH_WIDTH, CONSTANTS.SMALL_FISH_HEIGHT);
       } else {
-        ctx.drawImage(smallfishright, this.fish.left, this.fish.top, CONSTANTS.SMALL_FISH_WIDTH, CONSTANTS.SMALL_FISH_HEIGHT);
+        ctx.drawImage(this.moveright, this.pos.left, this.pos.top, CONSTANTS.SMALL_FISH_WIDTH, CONSTANTS.SMALL_FISH_HEIGHT);
       }
-     
-
-    // drawImage(img, 100, 100); // just draw it 
-    // drawImage(img, 100, 100, 200, 50); // draw it with width/height specified
-    // drawImage(img, 100, 100, 200, 50, 45); // draw it at 45 degrees
-    // drawImage(img, 100, 100, 200, 50, 0, true); // draw it flipped
-    // drawImage(img, 100, 100, 200, 50, 0, false, true); // draw it flopped
-    // drawImage(img, 100, 100, 200, 50, 0, true, true); // draw it flipflopped
-    // drawImage(img, 100, 100, 200, 50, 45, true, true, true); // draw it flipflopped and 45 degrees rotated around the center of the image :-)
   }
   
 
@@ -130,10 +120,10 @@ export default class Fish {
       }
       return true;
     };
-    let collision = false;
 
+    let collision = false;
     if ( 
-      _overlap(this.fish, hook)
+      _overlap(this.pos, hook)
     ) { 
       collision = true;
     }

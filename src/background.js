@@ -8,7 +8,7 @@ export default class Background {
   }
 
   drawBackground(ctx) {
-    ctx.fillStyle = "blue";
+    ctx.fillStyle = "transparent";
     ctx.fillRect(0, 0, this.dimensions.width, this.dimensions.height);
   }
 }

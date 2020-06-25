@@ -13,13 +13,15 @@ export default class Hook {
     }
 
     drawHook(ctx) {
-        ctx.fillStyle = "red";
-        ctx.fillRect(this.x, this.y, 10, 10);
+        let hook = document.getElementById('hook');
+        ctx.drawImage(hook, this.x, this.y, 10, 30);
+        // ctx.fillStyle = "red";
+        // ctx.fillRect(this.x, this.y, 10, 10);
     }
 
     drawLine(ctx) {
         ctx.fillStyle = "white";
-        ctx.fillRect(this.x+4, this.y, 2, -700)
+        ctx.fillRect(this.x, this.y, 1, -700)
     }
 
     animate(ctx) {
@@ -90,8 +92,8 @@ export default class Hook {
     }
 
     move() {
-        if (this.y <= 15) {
-            this.y = 15;
+        if (this.y <= -10) {
+            this.y = -10;
         } else if (this.y >= this.dimensions.height - 15) {
             this.y = this.dimensions.height - 15;
         }
@@ -124,6 +126,9 @@ export default class Hook {
 
         if (this.map[32]) {
             this.reel();
+        } else {
+            this.map['reeling'] = false;
+            this.decelerateY();
         }
 
 
@@ -132,15 +137,15 @@ export default class Hook {
     }
 
     reel() {
-        // if (this.map[32]) {
+        // if (this.y <= 15) {
+        //     this.yVel = 0;
+        //     this.map['reeling'] = false;
+        // } else {
             this.yVel = -10;
+            this.map['reeling'] = true;
         // }
 
-        if (this.y <= 15) {
-            this.yVel = 0;
-        }
-
-        this.x + this.yVel;
+        // this.x + this.yVel;
     }
 
     keydown() {
@@ -165,7 +170,6 @@ export default class Hook {
 
     keyup() {
         document.addEventListener('keyup', (e) => {
-            this.map[e.key] = false;
             this.map[e.keyCode] = false;
         })
     }
@@ -175,8 +179,17 @@ export default class Hook {
         return {
             left: this.x,
             right: this.x + 10,
-            top: this.y,
-            bottom: this.y + 10
+            top: this.y + 10,
+            bottom: this.y + 30
+        };
+    }
+
+    runaway() {
+        return {
+            left: this.x - 10,
+            right: this.x + 20,
+            top: this.y - 10,
+            bottom: this.y + 50
         };
     }
 
