@@ -13,7 +13,7 @@ export default class Fish {
     this.yVel = this.newRandomVel();
     this.pos = this.randomPos(size)
 
-    const fishes = document.querySelectorAll('img');
+    const fishes = Array.from(document.querySelectorAll('img')).slice(5);
     if (size === 'small') {
       let randSmall = Math.floor(Math.random()*5)
       switch (randSmall) {
@@ -39,8 +39,8 @@ export default class Fish {
           break;
       }
     } else if (size === 'big') {
-        this.moveleft = fishes[10];
-        this.moveright = fishes[11];
+        this.moveleft = fishes[12];
+        this.moveright = fishes[13];
     }
 
     this.randMoveCB = this.randMoveCB.bind(this);
@@ -94,7 +94,7 @@ export default class Fish {
       this.pos.top += this.yVel;
       this.pos.bottom += this.yVel;
   
-    if (this.pos.right >= (this.dimensions.width + 50) || this.pos.left <= -50) {
+    if (this.pos.right >= (this.dimensions.width + 100) || this.pos.left <= -100) {
       this.xVel *= -1
     } 
     if (this.pos.bottom >= (this.dimensions.height + 90) || this.pos.top <= 0) {

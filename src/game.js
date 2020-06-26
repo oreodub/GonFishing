@@ -16,13 +16,18 @@ export default class GonFishing {
     // this.background.animate(this.ctx);
     this.hook.animate(this.ctx);
     this.fishes.forEach((fish) => {
+      
       fish.animate(this.ctx);
     })
-    if (this.score < 100) {
-      this.bigfish.pos.left = 500;
-      this.bigfish.pos.top = 700;
-    } 
-    this.bigfish.animate(this.ctx);
+    // if (this.score < 50) {
+    //   this.bigfish.pos.left = 500;
+    //   this.bigfish.pos.top = 700;
+    // }
+
+    if (this.bigfish) {
+      this.bigfish.animate(this.ctx);
+    }
+    // this.hook.yVel = 0;
     
     this.drawScore();
     this.runaway();
@@ -36,7 +41,7 @@ export default class GonFishing {
     // this.background = new Background(this.dimensions);
     this.hook = new Hook(this.dimensions);
 
-    for (let i = 0; i < 15; i++) {
+    for (let i = 0; i < 17; i++) {
       this.fishes.push(new Fish(this.dimensions, 'small'))
     }
     this.score = 0;
@@ -59,7 +64,6 @@ export default class GonFishing {
         } else {
           fish.yVel = -3;
         }
-        
       }
     })
   }
@@ -75,20 +79,33 @@ export default class GonFishing {
             this.score += 50;
           }
         } else {
-          fish.xVel = -3.5;
           fish.yVel = 3.5;
         }
-        
       }
     })
-    
+
+    if (this.bigfish) {
+      if (this.bigfish.caught(this.hook.hitbox()) && this.hook.map['reeling']) {
+        
+        if (Math.random() > 0.5) {
+          this.bigfish.xVel = this.hook.xVel;
+          this.bigfish.yVel = this.hook.yVel;
+          if (this.bigfish.pos.bottom < 35) {
+            this.bigfish = false;
+            this.score += 500;
+          }
+        } else {
+          this.bigfish.yVel = 5;
+        }
+      }
+    }
   }
 
   start() {
-    let start = document.getElementById('start');
     let gonwelcome = document.getElementById('gonwelcome');
     let header = document.getElementById('header');
-    start.style = 'display: none;'
+    let splash = document.getElementById('splash');
+    splash.style = 'display: none;'
     gonwelcome.style = 'display: none;'
     header.classList.add('move')
     header.classList.remove('header-animation')

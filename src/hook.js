@@ -117,7 +117,7 @@ export default class Hook {
     }
 
     reel() {
-        this.yVel = -10;
+        this.yVel = -8;
         this.map['reeling'] = true;
 
     }
