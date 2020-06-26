@@ -110,7 +110,7 @@ export default class GonFishing {
     header.classList.add('move')
     header.classList.remove('header-animation')
     this.running = true;
-    // this.music();
+    this.music();
     this.animate();
     this.timer()
   };
