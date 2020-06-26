@@ -1,25 +1,21 @@
 const CONSTANTS = {
   SMALL_FISH_WIDTH: 33,
   SMALL_FISH_HEIGHT: 24.5,
-  LARGE_FISH_WIDTH: 80,
-  LARGE_FISH_WIDTH: 40,
+  BIG_FISH_WIDTH: 100,
+  BIG_FISH_HEIGHT: 90,
 };
 
 export default class Fish {
-  // how to randomize fish movement, should i structure it as an array of fish or pass in size and
-  // hold many instances of fish in my game class
   constructor(dimensions, size) {
     this.dimensions = dimensions;
     this.size = size;
+    this.xVel = this.newRandomVel();
+    this.yVel = this.newRandomVel();
+    this.pos = this.randomPos(size)
 
-    if (this.size === 'small') {
-      this.xVel = this.newRandomVel();
-      this.yVel = this.newRandomVel();
-      this.pos = this.randomFish(this.size)
-
-
-      const fishes = document.querySelectorAll('img');
-      let randSmall = Math.floor(Math.random()*3)
+    const fishes = document.querySelectorAll('img');
+    if (size === 'small') {
+      let randSmall = Math.floor(Math.random()*5)
       switch (randSmall) {
         case 0:
           this.moveleft = fishes[0];
@@ -29,11 +25,22 @@ export default class Fish {
           this.moveleft = fishes[2];
           this.moveright = fishes[3];
           break;
-       case 2:
+        case 2:
           this.moveleft = fishes[4];
           this.moveright = fishes[5];
-         break;
+          break;
+        case 3:
+          this.moveleft = fishes[6];
+          this.moveright = fishes[7];
+          break;
+        case 4:
+          this.moveleft = fishes[8];
+          this.moveright = fishes[9];
+          break;
       }
+    } else if (size === 'big') {
+        this.moveleft = fishes[10];
+        this.moveright = fishes[11];
     }
 
     this.randMoveCB = this.randMoveCB.bind(this);
@@ -43,20 +50,19 @@ export default class Fish {
     setTimeout(this.randMoveCB, this.randBetween10002000());
   }
 
-  randomFish(size) {
+  randomPos(size) {
     let randomX = Math.floor(Math.random() * (this.dimensions.width-200)) + 100;
     let randomY = Math.floor(Math.random() * (this.dimensions.height-200)) + 100;
 
-    let fish = {};
+    let pos = { left: randomX, top: randomY };
     if (size === 'small') {
-      fish = {
-          left: randomX,
-          right: randomX + CONSTANTS.SMALL_FISH_WIDTH,
-          top: randomY,
-          bottom: randomY + CONSTANTS.SMALL_FISH_HEIGHT
-        }
+      pos.right = randomX + CONSTANTS.SMALL_FISH_WIDTH;
+      pos.bottom = randomY + CONSTANTS.SMALL_FISH_HEIGHT;
+    } else if (size === 'big') {
+      pos.right = randomX + CONSTANTS.BIG_FISH_WIDTH;
+      pos.bottom = randomY + CONSTANTS.BIG_FISH_HEIGHT;
     }
-    return fish;
+    return pos;
   }
   
   animate(ctx) {
@@ -82,30 +88,34 @@ export default class Fish {
     setTimeout(this.randMoveCB, this.randBetween10002000())
   }
   
-
-
-  
   moveFish() {
-        this.pos.left += this.xVel;
-        this.pos.right += this.xVel;
-        this.pos.top += this.yVel;
-        this.pos.bottom += this.yVel;
-
+      this.pos.left += this.xVel;
+      this.pos.right += this.xVel;
+      this.pos.top += this.yVel;
+      this.pos.bottom += this.yVel;
   
     if (this.pos.right >= (this.dimensions.width + 50) || this.pos.left <= -50) {
       this.xVel *= -1
     } 
-
-    if (this.pos.bottom >= (this.dimensions.height + 50) || this.pos.top <= -50) {
+    if (this.pos.bottom >= (this.dimensions.height + 90) || this.pos.top <= 0) {
       this.yVel *= -1
     }
   }
   
   drawFish(ctx) {
+    let width, height;
+    if (this.size === 'small') {
+      width = CONSTANTS.SMALL_FISH_WIDTH;
+      height = CONSTANTS.SMALL_FISH_HEIGHT;
+    } else if (this.size === 'big') {
+      width = CONSTANTS.BIG_FISH_WIDTH;
+      height = CONSTANTS.BIG_FISH_HEIGHT;
+
+    }
       if (this.xVel < 0) {
-        ctx.drawImage(this.moveleft, this.pos.left, this.pos.top, CONSTANTS.SMALL_FISH_WIDTH, CONSTANTS.SMALL_FISH_HEIGHT);
+        ctx.drawImage(this.moveleft, this.pos.left, this.pos.top, width, height);
       } else {
-        ctx.drawImage(this.moveright, this.pos.left, this.pos.top, CONSTANTS.SMALL_FISH_WIDTH, CONSTANTS.SMALL_FISH_HEIGHT);
+        ctx.drawImage(this.moveright, this.pos.left, this.pos.top, width, height);
       }
   }
   

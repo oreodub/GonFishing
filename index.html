@@ -10,22 +10,56 @@
 
     <body>
         <audio id ="ARBW" src="./src/sounds/Aqua_Road_Blue_World.mp3"></audio>
+        <script src="https://kit.fontawesome.com/cdaea745f2.js" crossorigin="anonymous"></script>
         <img style='display: none'   src="./src/images/maskfishleft.png" alt="maskfishleft">
         <img style='display: none'  src="./src/images/maskfishright.png" alt="maskfishright">
         <img style='display: none'   src="./src/images/bubblefishleft.png" alt="bubblefishleft">
         <img style='display: none'  src="./src/images/bubblefishright.png" alt="bubblefishright">
         <img style='display: none'   src="./src/images/krappyleft.png" alt="krappyleft">
         <img style='display: none'  src="./src/images/krappyright.png" alt="krappyright">
+        <img style='display: none'   src="./src/images/kripleft.png" alt="kripleft">
+        <img style='display: none'  src="./src/images/kripright.png" alt="kripright">
+        <img style='display: none'   src="./src/images/gobyleft.png" alt="gobyleft">
+        <img style='display: none'  src="./src/images/gobyright.png" alt="gobyright">
+        <img style='display: none'   src="./src/images/dodoleft.png" alt="dodoleft">
+        <img style='display: none'  src="./src/images/dodoright.png" alt="dodoright">
+        <img style='display: none'   src="./src/images/sharkleft.png" alt="sharkleft">
+        <img style='display: none'  src="./src/images/sharkright.png" alt="sharkright">
         <img style='display: none' id='hook' src="./src/images/hook.png" alt="hook">
-        <h1 class='header' id='header'>Gon Fishing</h1>
+
+        <nav class="">
+            <h1>William Suh</h1>
+            <h1 class='header header-animation' id='header'>
+                <img id='splashline' src="./src/images/splashline.png" alt="splashline">
+                GON FISHING
+            </h1>
+            <ul>
+                <li>
+                    <a href="https://www.linkedin.com/in/williamjsuh/" target="_blank"><i class="fab fa-linkedin"></i></a>
+                </li>
+            
+                <li>
+                    <a href="https://github.com/oreodub" target="_blank"><i class="fab fa-github"></i></a>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- <a href="https://mail.google.com/mail/?view=cm&fs=1&to=william.junil.suh@gmail.com" target="_blank"><i
+                class="fas fa-envelope-open-text"></i></a> -->
+        
         <div id ='splash'> 
             <img id="gonwelcome" src="./src/images/gonwelcome.gif" alt="gonwelcome">
             <button id='start'>START</button> 
         </div>
 
-        <canvas id="canvas" height='700' width='1100'></canvas>
-        <script src="https://cdn.jsdelivr.net/npm/bubbly-bg@0.2.3/dist/bubbly-bg.js"></script>
-        <script>bubbly({canvas: document.getElementById('canvas'),  compose: 'source-atop'});</script>
+
+        
+        <div class='game'>
+            <div id='timer'>60</div>
+            <canvas id="canvas" height='700' width='1100'></canvas>
+            <script src="https://cdn.jsdelivr.net/npm/bubbly-bg@0.2.3/dist/bubbly-bg.js"></script>
+            <script>bubbly({canvas: document.getElementById('canvas'),  compose: 'source-atop'});</script>
+        </div>
 
         <script src="./dist/main.js"></script>
     </body>

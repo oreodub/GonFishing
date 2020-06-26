@@ -1,5 +1,5 @@
 import Hook from "./hook";
-import Background from './background';
+// import Background from './background';
 import Fish from './fish';
 export default class GonFishing {
   
@@ -7,6 +7,7 @@ export default class GonFishing {
     this.ctx = canvas.getContext("2d");
     this.dimensions = { width: canvas.width, height: canvas.height };
     this.fishes = [];
+    this.bigfish = new Fish(this.dimensions, 'big');
     this.handleStart();
     this.restart();
   };
@@ -17,28 +18,27 @@ export default class GonFishing {
     this.fishes.forEach((fish) => {
       fish.animate(this.ctx);
     })
+    if (this.score < 100) {
+      this.bigfish.pos.left = 500;
+      this.bigfish.pos.top = 700;
+    } 
+    this.bigfish.animate(this.ctx);
+    
     this.drawScore();
     this.runaway();
     this.caught();
-
     if (this.running) {
       requestAnimationFrame(this.animate.bind(this));
     };
   };
 
   restart() {
-    this.background = new Background(this.dimensions);
+    // this.background = new Background(this.dimensions);
     this.hook = new Hook(this.dimensions);
 
     for (let i = 0; i < 15; i++) {
       this.fishes.push(new Fish(this.dimensions, 'small'))
     }
-    // this.smallFishOne = new Fish(this.dimensions, 'small');
-    // this.smallFishTwo = new Fish(this.dimensions, 'small');
-    // this.smallFishThree = new Fish(this.dimensions, 'small');
-    // this.fishes.push(this.smallFishOne);
-    // this.fishes.push(this.smallFishTwo);
-    // this.fishes.push(this.smallFishThree);
     this.score = 0;
     this.running = false;
     this.animate();
@@ -47,7 +47,6 @@ export default class GonFishing {
   runaway() {
     this.fishes.forEach((fish) => {
       if (fish.caught(this.hook.runaway())) {
-        // console.log('gettin close!')
         
         if (this.hook.xVel > 0) {
           fish.xVel = 3;
@@ -60,7 +59,6 @@ export default class GonFishing {
         } else {
           fish.yVel = -3;
         }
-        // fish.yVel *= -1;
         
       }
     })
@@ -79,14 +77,10 @@ export default class GonFishing {
         } else {
           fish.xVel = -3.5;
           fish.yVel = 3.5;
-          console.log('aw snap fish let go')
         }
         
       }
     })
-    // this.smallFishOne.caught(this.hook.hitbox())
-    // this.smallFishTwo.caught(this.hook.hitbox())
-    // this.smallFishThree.caught(this.hook.hitbox())
     
   }
 
@@ -97,54 +91,49 @@ export default class GonFishing {
     start.style = 'display: none;'
     gonwelcome.style = 'display: none;'
     header.classList.add('move')
+    header.classList.remove('header-animation')
     this.running = true;
     // this.music();
     this.animate();
+    this.timer()
   };
-
-  // click() {
-  //   if (this.running) {
-  //     this.bird.flap()
-  //   } else {
-  //     this.play();
-  //   }
-  // };
 
   handleStart() {
     let start = document.getElementById('start');
     start.addEventListener("mousedown", this.start.bind(this));
   }
 
-  // drawScoreBackground() {
-  //   let score = document.getElementById('score');
-  //   const loc = { x: this.dimensions.width - 100, y: 50 }
-  //   score.fillRect(loc.x, loc.y, 10, 10)
-  //   score.fillStyle("black")
-  // }
-
   drawScore() {
     const loc = { x: this.dimensions.width -100 , y: 50 }
-    this.ctx.font = "30pt Arial";
+    this.ctx.font = "30pt Times";
     this.ctx.fillStyle = "white";
     this.ctx.fillText(this.score, loc.x, loc.y);
-    // this.ctx.strokeStyle = "transparent";
-    this.ctx.lineWidth = 2;
+    this.ctx.strokeStyle = "white";
+    this.ctx.lineWidth = 1;
     this.ctx.strokeText(this.score, loc.x, loc.y);
   }
 
   timer() {
-    var sec = 30;
-    var timer = setInterval(()=>{
-      document.getElementById('safeTimerDisplay').innerHTML = '00:' + sec;
+    const timer = document.getElementById('timer');
+    timer.style = 'display: block;';
+    
+    let sec = 60;
+    const incrementer = setInterval(()=>{
+      timer.innerHTML = sec;
       sec--;
-      if (sec < 0) {
-        clearInterval(timer);
+      if (sec < 5) {
+        timer.classList.add('red');
       }
+      if (sec < 0) {
+        this.running = false;
+        clearInterval(incrementer);
+      } 
     }, 1000);
   }
 
+
   music() {
-    let arbw = document.getElementById('ARBW');
+    const arbw = document.getElementById('ARBW');
     arbw.volume = 0.1;
     arbw.play();
   }

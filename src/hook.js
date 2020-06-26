@@ -1,5 +1,4 @@
 export default class Hook {
-// how to add inertia after i let go of keypress instead of immediately setting velocity to 0
     constructor(dimensions) {
         this.dimensions = dimensions;
         this.y = this.dimensions.height / 2;
@@ -15,8 +14,6 @@ export default class Hook {
     drawHook(ctx) {
         let hook = document.getElementById('hook');
         ctx.drawImage(hook, this.x, this.y, 10, 30);
-        // ctx.fillStyle = "red";
-        // ctx.fillRect(this.x, this.y, 10, 10);
     }
 
     drawLine(ctx) {
@@ -26,7 +23,6 @@ export default class Hook {
 
     animate(ctx) {
         this.move();
-        // this.reel();
         this.drawHook(ctx);
         this.drawLine(ctx);
     }
@@ -36,10 +32,6 @@ export default class Hook {
         if (this.xVel > 5) {
             this.xVel = 5;
         }
-
-        // if (this.x > this.dimensions.width - 20) {
-        //     this.xVel = 0;
-        // } 
     }
 
     moveLeft() {
@@ -47,10 +39,6 @@ export default class Hook {
         if (this.xVel < -5) {
             this.xVel = -5;
         }
-
-        // if (this.x < 10) {
-        //     this.xVel = 0;
-        // } 
     }
 
     moveDown() {
@@ -58,10 +46,6 @@ export default class Hook {
         if (this.yVel > 5) {
             this.yVel = 5;
         }
-
-        // if (this.y >= this.dimensions.height-15) {
-        //     this.yVel = 0;
-        // } 
     }
 
     moveUp() {
@@ -69,10 +53,6 @@ export default class Hook {
         if (this.yVel < -5) {
             this.yVel = -5;
         }
-
-        // if (this.y <= 15) {
-        //     this.yVel = 0;
-        // } 
     }
     
     decelerateY() {
@@ -137,15 +117,9 @@ export default class Hook {
     }
 
     reel() {
-        // if (this.y <= 15) {
-        //     this.yVel = 0;
-        //     this.map['reeling'] = false;
-        // } else {
-            this.yVel = -10;
-            this.map['reeling'] = true;
-        // }
+        this.yVel = -10;
+        this.map['reeling'] = true;
 
-        // this.x + this.yVel;
     }
 
     keydown() {
@@ -192,5 +166,4 @@ export default class Hook {
             bottom: this.y + 50
         };
     }
-
 }
