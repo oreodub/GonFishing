@@ -87,7 +87,7 @@ export default class GonFishing {
     if (this.bigfish) {
       if (this.bigfish.caught(this.hook.hitbox()) && this.hook.map['reeling']) {
         
-        if (Math.random() > 0.5) {
+        if (Math.random() > 0.25) {
           this.bigfish.xVel = this.hook.xVel;
           this.bigfish.yVel = this.hook.yVel;
           if (this.bigfish.pos.bottom < 35) {
