@@ -72,8 +72,8 @@ export default class Hook {
     }
 
     move() {
-        if (this.y <= -10) {
-            this.y = -10;
+        if (this.y <= -25) {
+            this.y = -25;
         } else if (this.y >= this.dimensions.height - 15) {
             this.y = this.dimensions.height - 15;
         }

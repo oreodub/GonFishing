@@ -8,7 +8,7 @@
         <meta property="og:type" content="website" />
         
         <meta property="og:url" content="https://oreodub.github.io/GonFishing/" />
-        <meta property="og:image" content="https://oreodub.github.io/GonFishing/src/images/gonfishing.png" />
+        <meta property="og:image" content="https://oreodub.github.io/GonFishing/assets/gonfishing.png" />
         <meta property="og:description" content="A fun lil fishing game created with vanilla Javascript." />
         
         <meta charset="UTF-8" />
@@ -39,7 +39,7 @@
                     <a href="https://github.com/oreodub" target="_blank"><i class="fab fa-github"></i></a>
                 </li>
                 <li>
-                    <a href="https://angel.co/u/william-suh-4" target="_blank"><i class="fab fa-angellist"></i></a>
+                    <a href="https://angel.co/u/williamjsuh" target="_blank"><i class="fab fa-angellist"></i></a>
                 </li>
             </ul>
         </nav>
@@ -53,16 +53,21 @@
             <button id="dropdown">
                 INSTRUCTIONS
                 <div class="dropdown-content">
+                    <div>One minute timer</div>
                     <div><img class='wasd' src="./src/images/wasd.png" alt="WASD"> or 
                         <img class='wasd' src="./src/images/arrows.png" alt="arrows"> to move hook</div>
-                    <div class="dropdown-spacebar"><div class='spacebar'></div>to reel in and catch fish</div>
-                    <div>One minute timer</div>
-                    <div>Hover over fish to see their traits</div>
-                </div>
-            </button>
-        </div>
-
-
+                        <div class="dropdown-spacebar">Get below fish and reel in<div class='spacebar'></div></div>
+                        <div>Hover over sidebar fish to see points</div>
+                    </div>
+                </button>
+            </div>
+            
+            <div class='restart-container'>
+                <h1>YOUR SCORE</h1>
+                <h1 id='score'>0</h1>
+                
+                <button id='restart'>GO AGAIN?</button>
+            </div>
         
         <div class='game'>
             <div class='left'>
@@ -116,15 +121,15 @@
                     <img src="./src/images/sharkleft.png" alt="sharkleft">
                     <img style='display: none' src="./src/images/sharkright.png" alt="sharkright">
                     <div style="color: crimson;" class="shark-dropdown">
-                        Takes 
+                        Chases 
                         <br>
                         your 
                         <br>
                         line 
                         <br>
-                        for a 
+                        if too
                         <br>
-                        second
+                        close
                     </div>
                 </div>
             

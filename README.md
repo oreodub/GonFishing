@@ -5,10 +5,10 @@ Gon Fishing is a fishing game inspired by a Flash Game of a forgotten title (oop
 
 # Functionality and MVPs
 
-* Player control the fishing line with either their mouse or arrow buttons
+* Player control the fishing line with either their WASD or arrow buttons
 * Spacebar to reel in the hook
-* Avoid getting your line snagged in obstacles
-* Bigger fish require multiple spacebar inputs to successfully reel in
+* Avoid getting your line snagged by sharks
+* Master of the Swamp is faster and harder to catch
 * One minute timer
 
 # Wireframe
@@ -22,21 +22,22 @@ Gon Fishing is a fishing game inspired by a Flash Game of a forgotten title (oop
 # Implementation Timeline
 ## Day 1
 * implement game logic
-    * fish move horizontally at random speeds
+    * fish move at random speeds
     * spacebar to reel in hook
-    * score (fish +points, obstacles -points)
+    * score (fish +points)
+    * shark chases line
     * collision detection between hook and fish/obstacles
-    * bigger fish require more spacebar inputs to reel in
+    * big fish faster and harder to catch
 ## Day 2
 * finish game logic
 ## Day 3
 * images/sprites
-* high score list
 ## Day 4
 * game start/restart
-* game start animation of Gon casting his line
+* styling
 * sounds and music
 
 ## Bonus Features
 * difficulty
 * different skins/layouts
+* high score list

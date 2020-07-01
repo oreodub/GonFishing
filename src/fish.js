@@ -3,6 +3,8 @@ const CONSTANTS = {
   SMALL_FISH_HEIGHT: 24.5,
   BIG_FISH_WIDTH: 100,
   BIG_FISH_HEIGHT: 90,
+  SHARK_WIDTH: 60,
+  SHARK_HEIGHT: 50
 };
 
 export default class Fish {
@@ -41,6 +43,9 @@ export default class Fish {
     } else if (size === 'big') {
         this.moveleft = fishes[12];
         this.moveright = fishes[13];
+    } else if (size === 'shark') {
+      this.moveleft = fishes[10];
+      this.moveright = fishes[11];
     }
 
     this.randMoveCB = this.randMoveCB.bind(this);
@@ -61,6 +66,9 @@ export default class Fish {
     } else if (size === 'big') {
       pos.right = randomX + CONSTANTS.BIG_FISH_WIDTH;
       pos.bottom = randomY + CONSTANTS.BIG_FISH_HEIGHT;
+    } else if (size === 'shark') {
+      pos.right = randomX + CONSTANTS.SHARK_WIDTH;
+      pos.bottom = randomY + CONSTANTS.SHARK_HEIGHT;
     }
     return pos;
   }
@@ -110,7 +118,9 @@ export default class Fish {
     } else if (this.size === 'big') {
       width = CONSTANTS.BIG_FISH_WIDTH;
       height = CONSTANTS.BIG_FISH_HEIGHT;
-
+    } else if (this.size === 'shark') {
+      width = CONSTANTS.SHARK_WIDTH;
+      height = CONSTANTS.SHARK_HEIGHT;
     }
       if (this.xVel < 0) {
         ctx.drawImage(this.moveleft, this.pos.left, this.pos.top, width, height);

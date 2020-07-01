@@ -1,57 +1,52 @@
 import Hook from "./hook";
-// import Background from './background';
 import Fish from './fish';
 export default class GonFishing {
   
   constructor(canvas){
     this.ctx = canvas.getContext("2d");
     this.dimensions = { width: canvas.width, height: canvas.height };
-    this.fishes = [];
-    this.bigfish = new Fish(this.dimensions, 'big');
     this.handleStart();
     this.restart();
   };
 
   animate() {
-    // this.background.animate(this.ctx);
     this.hook.animate(this.ctx);
-    this.fishes.forEach((fish) => {
-      
+    this.fishes.forEach((fish) => { 
       fish.animate(this.ctx);
     })
-    // if (this.score < 50) {
-    //   this.bigfish.pos.left = 500;
-    //   this.bigfish.pos.top = 700;
-    // }
 
     if (this.bigfish) {
       this.bigfish.animate(this.ctx);
     }
-    // this.hook.yVel = 0;
+
+    this.shark.animate(this.ctx);
     
     this.drawScore();
     this.runaway();
     this.caught();
     if (this.running) {
+      this.playMusic();
       requestAnimationFrame(this.animate.bind(this));
     };
   };
 
   restart() {
-    // this.background = new Background(this.dimensions);
     this.hook = new Hook(this.dimensions);
-
+    this.fishes = [];
     for (let i = 0; i < 17; i++) {
       this.fishes.push(new Fish(this.dimensions, 'small'))
     }
+    this.bigfish = new Fish(this.dimensions, 'big');
+    this.shark = new Fish(this.dimensions, 'shark');
     this.score = 0;
     this.running = false;
     this.animate();
   };
 
   runaway() {
+    const hook = this.hook.runaway();
     this.fishes.forEach((fish) => {
-      if (fish.caught(this.hook.runaway())) {
+      if (fish.caught(hook)) {
         
         if (this.hook.xVel > 0) {
           fish.xVel = 3;
@@ -66,6 +61,21 @@ export default class GonFishing {
         }
       }
     })
+
+    const shark = this.shark.pos;
+    if (this.shark.caught(hook)) {
+      if (hook.left < shark.left) {
+        this.shark.xVel = -4;
+      } else if (hook.right > shark.right) {
+        this.shark.xVel = 4;
+      }
+
+      if (hook.top < shark.top) {
+        this.shark.yVel = -4;
+      } else if (hook.bottom > shark.bottom) {
+        this.shark.yVel = 4;
+      }
+    }
   }
 
   caught() {
@@ -99,25 +109,39 @@ export default class GonFishing {
         }
       }
     }
+
+    if (this.shark.caught(this.hook.hitbox())) {
+      this.hook.xVel = this.shark.xVel;
+      this.hook.yVel = this.shark.yVel;
+    }
   }
 
   start() {
     let gonwelcome = document.getElementById('gonwelcome');
     let header = document.getElementById('header');
     let splash = document.getElementById('splash');
+    let restart = document.getElementsByClassName('restart-container')[0];
     splash.style = 'display: none;'
     gonwelcome.style = 'display: none;'
+    restart.style = 'display: none;'
     header.classList.add('move')
     header.classList.remove('header-animation')
+    document.getElementById('restart').style = 'z-index: -10;'
     this.running = true;
-    this.music();
+    
     this.animate();
     this.timer()
   };
 
   handleStart() {
-    let start = document.getElementById('start');
+    const start = document.getElementById('start');
+    const restart = document.getElementById('restart');
     start.addEventListener("mousedown", this.start.bind(this));
+    restart.addEventListener("mousedown", 
+    ()=> {
+      this.restart(); 
+      this.start();
+    });
   }
 
   drawScore() {
@@ -133,7 +157,7 @@ export default class GonFishing {
   timer() {
     const timer = document.getElementById('timer');
     timer.style = 'display: block;';
-    
+    timer.innerHTML = 60;
     let sec = 60;
     const incrementer = setInterval(()=>{
       timer.innerHTML = sec;
@@ -143,16 +167,25 @@ export default class GonFishing {
       }
       if (sec < 0) {
         this.running = false;
+        timer.style = 'display: none;'
+        document.getElementsByClassName('restart-container')[0].style = 'display: flex;'
+        document.getElementById('restart').style = 'z-index: 10;'
+        document.getElementById('score').innerHTML = this.score;
+        this.pauseMusic();
         clearInterval(incrementer);
       } 
     }, 1000);
   }
 
 
-  music() {
+  playMusic() {
     const arbw = document.getElementById('ARBW');
     arbw.volume = 0.1;
     arbw.play();
   }
 
+  pauseMusic() {
+    const arbw = document.getElementById('ARBW');
+    arbw.pause();
+  }
 }
