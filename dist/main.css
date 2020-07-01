@@ -16,6 +16,7 @@ body {
 .header {
     position: relative;
     top: 150px;
+    left: 22px;
     z-index: 6;
     transition-duration: 2s;
 }
@@ -104,7 +105,7 @@ i:hover {
     transition-duration: 0.5s;
 }
 
-.fa-envelope-open-text, .fa-linkedin, .fa-github {
+.fa-envelope-open-text, .fab {
     color: #54C49D;
     font-size: 30px;
 }
@@ -119,7 +120,7 @@ i:hover {
     border: 2px solid black;
 }
 
-button {
+#splash > button {
     display: flex;
     position: absolute;
     align-items: center;
@@ -138,7 +139,6 @@ button {
     line-height: 17px;
     margin-right: 18px;
     text-decoration: none;
-
 }
 
 #start {
@@ -146,7 +146,49 @@ button {
     left: 50%;
 }
 
-#start:hover, #dropdown:hover {
+#restart {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+    width: 200px;
+    font-size: 20px;
+    cursor: pointer;
+    background-color: #22bce3;
+    color: white;
+    outline: none;
+    border: none;
+    padding: 5px 17px 7px;
+    border-radius: 5px;
+    line-height: 17px;
+    text-decoration: none;
+
+}
+
+.restart-container {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    z-index: 10;
+    color: white;
+    background-color: #54C49D;
+    height: 230px;
+    width: 260px;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.restart-container > h1 {
+    margin-top: 5px;
+}
+
+#start:hover, #dropdown:hover, #restart:hover {
     border: 2px solid white;
     text-decoration: none;
 }
