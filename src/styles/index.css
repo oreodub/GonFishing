@@ -88,7 +88,7 @@ i:hover {
     transition-duration: 0.5s;
 }
 
-.fa-envelope-open-text, .fa-linkedin, .fa-github {
+.fa-envelope-open-text, .fa-linkedin, .fa-github, .fa-angellist {
     color: #54C49D;
     font-size: 30px;
 }
